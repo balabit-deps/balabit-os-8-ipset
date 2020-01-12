@@ -1,0 +1,2 @@
+lib/*/libipset.{so,la}
+lib/*/pkgconfig/libipset.pc

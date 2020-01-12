@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+
+_configure := --sbindir=/sbin --libdir=/lib/$(DEB_HOST_MULTIARCH) \
+	--with-kmod=no --enable-settype-modules --disable-silent-rules
+
+CFLAGS += -fstack-protector-all
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(_configure)
+
+PKGCONFIG_INSTDIR := debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig
+BASHCOMPL_INSTDIR := debian/tmp/usr/share/bash-completion/completions
+override_dh_auto_install:
+	mkdir -p $(PKGCONFIG_INSTDIR)
+	cp lib/libipset.pc $(PKGCONFIG_INSTDIR)
+	mkdir -p $(BASHCOMPL_INSTDIR)
+	install --mode=0755 utils/ipset_bash_completion/ipset \
+	  $(BASHCOMPL_INSTDIR)/ipset
+	dh_auto_install
+
+override_dh_link:
+	LIBIPSET_SO_VER=$(shell basename $(CURDIR)/debian/tmp/lib/*/libipset.so.*.* | sed 's/.*\.so\.\(.*\)/\1/') \
+	dh_link
+
+override_dh_makeshlibs:
+	dh_makeshlibs -V

@@ -1,0 +1,23 @@
+Description: Workaround for hash:ip delete one-by-one test failed 
+ The hash:ip delete one-by-one test is failed.
+ Refers to the bug [1], The set members are sometimes evicted on hash resized.
+ It should be fixed in the kernel side.
+ .
+ Create hash:ip with hashsize that large enough to store data without hash
+ resizing for workaround.
+ .
+ [1] https://git.netfilter.org/ipset/commit/?id=728fed0f689c76cb5cd77499b022764e93d91932
+Author: Neutron Soutmun <neo.neutron@gmail.com>
+Forwarded: not-needed 
+Last-Update: 2017-05-30
+
+Index: ipset/tests/iphash.t.large
+===================================================================
+--- ipset.orig/tests/iphash.t.large
++++ ipset/tests/iphash.t.large
+@@ -1,4 +1,4 @@
+-create test hash:ip family inet hashsize 1024 maxelem 65536
++create test hash:ip family inet hashsize 32768 maxelem 65536
+ add test 10.10.0.0
+ add test 10.10.0.1
+ add test 10.10.0.2

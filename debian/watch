@@ -1,0 +1,2 @@
+version=3
+opts=pasv ftp://netfilter.org/pub/ipset/ipset-(.*)\.tar.bz2 debian uupdate
