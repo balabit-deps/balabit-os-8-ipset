@@ -1,7 +1,8 @@
 Source: ipset
 Section: net
 Priority: optional
-Maintainer: Debian Netfilter Packaging Team <pkg-netfilter-team@lists.alioth.debian.org>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian Netfilter Packaging Team <pkg-netfilter-team@lists.alioth.debian.org>
 Uploaders: Neutron Soutmun <neutrons@debian.org>
 Build-Depends:
  debhelper-compat (= 12),

@@ -1,0 +1,39 @@
+From dbeb20a667e82e4efb8b26b24a0ec641dab5c857 Mon Sep 17 00:00:00 2001
+From: Haw Loeung <haw.loeung@canonical.com>
+Date: Wed, 17 Feb 2021 10:15:07 +0100
+Subject: [PATCH] Parse port before trying by service name
+
+This improves performance for loading IP sets using port numbers,
+especially large ones.
+
+Signed-off-by: Jozsef Kadlecsik <kadlec@netfilter.org>
+
+Origin: upstream, https://git.netfilter.org/ipset/commit/?id=dbeb20a667e8
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1918936
+Last-Update: 2021-06-25
+
+---
+ lib/parse.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/parse.c b/lib/parse.c
+index 31a619db..f3f2d113 100644
+--- a/lib/parse.c
++++ b/lib/parse.c
+@@ -319,11 +319,11 @@ ipset_parse_port(struct ipset_session *session,
+ 	assert(opt == IPSET_OPT_PORT || opt == IPSET_OPT_PORT_TO);
+ 	assert(str);
+ 
+-	if (parse_portname(session, str, &port, proto) == 0) {
++	if (string_to_u16(session, str, &port) == 0) {
+ 		return ipset_session_data_set(session, opt, &port);
+ 	}
+ 	/* Error is stored as warning in session report */
+-	if (string_to_u16(session, str, &port) == 0) {
++	if (parse_portname(session, str, &port, proto) == 0) {
+ 		/* No error, so reset false error messages */
+ 		ipset_session_report_reset(session);
+ 		return ipset_session_data_set(session, opt, &port);
+-- 
+2.32.0
+

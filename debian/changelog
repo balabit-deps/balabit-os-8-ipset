@@ -1,3 +1,10 @@
+ipset (7.5-1ubuntu0.20.04.1) focal; urgency=medium
+
+  * d/p/lp-1918936-{fix-p,P}arse-port-before-trying-by-service-name.patch:
+    speed up numeric port adds (LP: #1918936).
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Thu, 25 Nov 2021 09:55:19 +0000
+
 ipset (7.5-1~exp1) experimental; urgency=medium
 
   * [9c18ea7] New upstream version 7.5

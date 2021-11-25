@@ -2,3 +2,5 @@ test-installed.patch
 workaround-iphash-delete-one-by-one-test-failed.patch
 05-delay-the-set-with-timeout-resizing-test.patch
 fix-bash-completion.patch
+lp-1918936-Parse-port-before-trying-by-service-name.patch
+lp-1918936-fix-parse-port-before-trying-by-service-name.patch
